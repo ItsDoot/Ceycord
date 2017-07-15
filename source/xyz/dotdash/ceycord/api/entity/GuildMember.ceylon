@@ -1,7 +1,7 @@
 import ceylon.time.timezone {
     ZoneDateTime
 }
-import xyz.dotdash.ceycord.api {
+import xyz.dotdash.ceycord.api.util {
     Permission,
     OnlineStatus
 }

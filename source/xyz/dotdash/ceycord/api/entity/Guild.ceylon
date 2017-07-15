@@ -1,3 +1,6 @@
+import ceylon.promise {
+    Promise
+}
 import ceylon.time {
     Period
 }
@@ -6,11 +9,13 @@ import xyz.dotdash.ceycord.api.entity.channel {
     GuildVoiceChannel,
     GuildTextChannel
 }
-import ceylon.promise {
-    Promise
+import xyz.dotdash.ceycord.api.manager {
+    GuildManager,
+    Manageable
 }
-import xyz.dotdash.ceycord.api {
-    Region
+import xyz.dotdash.ceycord.api.util {
+    Region,
+    VerificationLevel
 }
 
 shared interface Guildlike of Guild | UnavailableGuild satisfies Distinct {
@@ -18,7 +23,7 @@ shared interface Guildlike of Guild | UnavailableGuild satisfies Distinct {
     shared formal Boolean available;
 }
 
-shared interface Guild satisfies Guildlike & ClientLinked & Category<User> {
+shared interface Guild satisfies Guildlike & ClientLinked & Category<User> & Manageable<Guild,GuildManager> {
 
     shared formal String name;
 
@@ -30,7 +35,7 @@ shared interface Guild satisfies Guildlike & ClientLinked & Category<User> {
 
     shared formal GuildVoiceChannel afkChannel;
 
-    shared formal Timeout afkTimeout;
+    shared formal AfkTimeout afkTimeout;
 
     shared formal Region region;
 
@@ -60,6 +65,8 @@ shared interface Guild satisfies Guildlike & ClientLinked & Category<User> {
 
     shared formal Promise<Nothing> delete(String? mfaCode = null) ;
 
+    shared formal VerificationLevel verificationLevel;
+
     shared actual Boolean available => true;
 }
 
@@ -68,7 +75,7 @@ shared interface UnavailableGuild satisfies Guildlike {
     shared actual Boolean available => false;
 }
 
-shared class Timeout {
+shared class AfkTimeout of seconds60 | seconds300 | seconds900 | seconds1800 | seconds3600 {
 
     shared Period period;
 

@@ -1,4 +1,4 @@
-import xyz.dotdash.ceycord.api {
+import xyz.dotdash.ceycord.api.util {
     Permission
 }
 import xyz.dotdash.ceycord.api.entity.channel {

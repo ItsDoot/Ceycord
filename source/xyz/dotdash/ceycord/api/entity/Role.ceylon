@@ -2,7 +2,12 @@ import ceylon.promise {
     Promise
 }
 
-shared interface Role satisfies Distinct & ClientLinked & GuildLinked & PermissionHolder & Comparable<Role> {
+import xyz.dotdash.ceycord.api.manager {
+    RoleManager,
+    Manageable
+}
+
+shared interface Role satisfies Distinct & ClientLinked & GuildLinked & PermissionHolder & Comparable<Role> & Manageable<Role,RoleManager> {
 
     shared formal String name;
 
