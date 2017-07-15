@@ -1,0 +1,1 @@
+shared package xyz.dotdash.ceycord.common.entity.message;
