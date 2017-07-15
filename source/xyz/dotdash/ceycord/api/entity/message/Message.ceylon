@@ -13,7 +13,7 @@ import xyz.dotdash.ceycord.api.entity.channel {
     TextChannel
 }
 
-shared interface Message satisfies ClientLinked & Category<User> {
+shared interface Message of GuildMessage | DirectMessage satisfies ClientLinked & Category<User> {
 
     shared formal {User*} mentionedUsers;
 
