@@ -8,7 +8,7 @@ import xyz.dotdash.ceycord.api.entity.channel {
 
 shared interface User satisfies Distinct & ClientLinked & Mentionable {
 
-    shared formal String username;
+    shared formal String name;
 
     shared formal String discriminator;
 
