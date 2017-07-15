@@ -1,4 +1,7 @@
-shared class Region {
+shared class Region of amsterdam | brazil | euWest | euCentral | frankfurt | hongKong | london | russia | singapore
+        | sydney | usEast | usWest | usCentral | usSouth | vipAmsterdam | vipBrazil | vipEuWest | vipEuCentral
+        | vipFrankfurt | vipHongKong | vipLondon | vipRussia | vipSingapore | vipSydney | vipUsEast | vipUsWest
+        | vipUsCentral | vipUsSouth {
 
     shared String key;
     shared String name;
