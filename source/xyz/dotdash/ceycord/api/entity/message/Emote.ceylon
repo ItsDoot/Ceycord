@@ -1,18 +1,18 @@
-import xyz.dotdash.ceycord.api.entity {
-    Distinct,
-    GuildLinked,
-    Role,
-    ClientLinked
-}
 import ceylon.promise {
     Promise
 }
 
-shared interface Emote satisfies Distinct & GuildLinked & ClientLinked {
+import xyz.dotdash.ceycord.api.entity {
+    Distinct,
+    GuildLinked,
+    Role,
+    ClientLinked,
+    Nameable
+}
+
+shared interface Emote satisfies Distinct & GuildLinked & ClientLinked & Nameable {
 
     shared formal {Role*} roles;
-
-    shared formal String name;
 
     shared formal Boolean managed;
 

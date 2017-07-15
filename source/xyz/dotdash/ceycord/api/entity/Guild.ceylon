@@ -9,6 +9,9 @@ import xyz.dotdash.ceycord.api.entity.channel {
     GuildVoiceChannel,
     GuildTextChannel
 }
+import xyz.dotdash.ceycord.api.entity.message {
+    Emote
+}
 import xyz.dotdash.ceycord.api.manager {
     GuildManager,
     Manageable
@@ -18,7 +21,8 @@ import xyz.dotdash.ceycord.api.util {
     VerificationLevel,
     NotificationLevel,
     ExplicitContentLevel,
-    MFALevel
+    MFALevel,
+    filters
 }
 
 shared interface Guildlike of Guild | UnavailableGuild satisfies Distinct {
@@ -26,13 +30,16 @@ shared interface Guildlike of Guild | UnavailableGuild satisfies Distinct {
     shared formal Boolean available;
 }
 
-shared interface Guild satisfies Guildlike & ClientLinked & Category<User> & Manageable<Guild,GuildManager> {
+shared interface Guild satisfies Guildlike & ClientLinked & Nameable & Category<User> & Manageable<Guild,GuildManager> {
 
-    shared formal String name;
 
-    shared formal String? icon;
+    shared formal String? iconId;
 
-    shared formal String? splash;
+    shared formal String? iconUrl;
+
+    shared formal String? splashId;
+
+    shared formal String? splashUrl;
 
     shared formal GuildMember owner;
 
@@ -44,13 +51,30 @@ shared interface Guild satisfies Guildlike & ClientLinked & Category<User> & Man
 
     shared formal actual Boolean contains(User user) ;
 
+    shared formal GuildMember selfMember;
+
     shared formal GuildMember getMember(User|String user) ;
 
     shared formal {GuildMember+} members;
 
+    shared default {GuildMember*} membersWithName(String name, Boolean ignoreCase = false)
+            => members.filter(filters.member.byName(name, ignoreCase));
+
+    shared default {GuildMember*} membersWithNickname(String nickname, Boolean ignoreCase = false)
+            => members.filter(filters.member.byNickname(nickname, ignoreCase));
+
+    shared default {GuildMember*} membersWithEffectiveName(String effectiveName, Boolean ignoreCase = false)
+            => members.filter(filters.member.byEffectiveName(effectiveName, ignoreCase));
+
+    shared default {GuildMember*} membersWithRoles({Role*} roles)
+            => members.filter(filters.member.byRoles(roles));
+
     shared formal GuildTextChannel getTextChannel(String id) ;
 
     shared formal {GuildTextChannel+} textChannels;
+
+    shared default {GuildTextChannel*} textChannelsWithName(String name, Boolean ignoreCase = false)
+            => textChannels.filter(filters.byName(name, ignoreCase));
 
     shared formal GuildTextChannel publicChannel;
 
@@ -58,15 +82,36 @@ shared interface Guild satisfies Guildlike & ClientLinked & Category<User> & Man
 
     shared formal {GuildVoiceChannel*} voiceChannels;
 
+    shared default {GuildVoiceChannel*} voiceChannelsWithName(String name, Boolean ignoreCase = false)
+            => voiceChannels.filter(filters.byName(name, ignoreCase));
+
     shared formal Role getRole(String id) ;
 
     shared formal {Role*} roles;
 
+    shared default {Role*} rolesWithName(String name, Boolean ignoreCase = false)
+            => roles.filter(filters.byName(name, ignoreCase));
+
     shared formal Role publicRole;
+
+    shared formal Emote getEmote(String id) ;
+
+    shared formal {Emote*} emotes;
+
+    shared default {Emote*} emotesWithName(String name, Boolean ignoreCase = false)
+            => emotes.filter(filters.byName(name, ignoreCase));
+
+    shared formal Promise<{User*}> bans;
+
+    shared formal Promise<Integer> prunableMemberCount(Integer days) ;
 
     shared formal Promise<Nothing> leave() ;
 
     shared formal Promise<Nothing> delete(String? mfaCode = null) ;
+
+    shared formal Promise<{Webhook*}> webhooks;
+
+    shared formal {GuildVoiceState*} voiceStates;
 
     shared formal VerificationLevel? verificationLevel;
 

@@ -7,9 +7,8 @@ import xyz.dotdash.ceycord.api.manager {
     Manageable
 }
 
-shared interface Role satisfies Distinct & ClientLinked & GuildLinked & PermissionHolder & Comparable<Role> & Manageable<Role,RoleManager> {
-
-    shared formal String name;
+shared interface Role satisfies Distinct & ClientLinked & GuildLinked & Nameable & PermissionHolder & Comparable<Role>
+        & Manageable<Role,RoleManager> {
 
     shared formal Integer? color;
 

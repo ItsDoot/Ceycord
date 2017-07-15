@@ -1,8 +1,7 @@
 import xyz.dotdash.ceycord.api.entity {
-    Distinct
+    Distinct,
+    Nameable
 }
 
-shared interface Channel satisfies Distinct {
-
-    shared formal String name;
+shared interface Channel satisfies Distinct & Nameable {
 }

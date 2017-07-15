@@ -6,9 +6,7 @@ import xyz.dotdash.ceycord.api.entity.channel {
     DirectTextChannel
 }
 
-shared interface User satisfies Distinct & ClientLinked & Mentionable {
-
-    shared formal String name;
+shared interface User satisfies Distinct & ClientLinked & Nameable & Mentionable {
 
     shared formal String discriminator;
 

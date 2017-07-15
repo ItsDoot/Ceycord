@@ -1,12 +1,13 @@
 import ceylon.time.timezone {
     ZoneDateTime
 }
+
+import xyz.dotdash.ceycord.api.entity.channel {
+    GuildChannel
+}
 import xyz.dotdash.ceycord.api.util {
     Permission,
     OnlineStatus
-}
-import xyz.dotdash.ceycord.api.entity.channel {
-    GuildChannel
 }
 
 shared interface GuildMember satisfies ClientLinked & GuildLinked & Mentionable & PermissionHolder   {
@@ -15,7 +16,7 @@ shared interface GuildMember satisfies ClientLinked & GuildLinked & Mentionable 
 
     shared formal String? nickname;
 
-    shared default String effectiveName => nickname else user.username;
+    shared default String effectiveName => nickname else user.name;
 
     shared formal {Role*} roles;
 
