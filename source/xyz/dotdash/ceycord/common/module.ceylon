@@ -15,7 +15,7 @@ module xyz.dotdash.ceycord.common "0.0.1" {
     shared import ceylon.logging "1.3.2";
     shared import ceylon.locale "1.3.2";
 
-    shared import xyz.dotdash.ceycord.api "1.0.0";
+    shared import xyz.dotdash.ceycord.api "0.0.1";
 
-    native ("jvm") import xyz.dotdash.ceycord.jvm "1.0.0";
+    native ("jvm") import xyz.dotdash.ceycord.jvm "0.0.1";
 }
