@@ -5,10 +5,12 @@ import ceylon.promise {
 import xyz.dotdash.ceycord.api.entity.channel {
     GuildTextChannel
 }
+import xyz.dotdash.ceycord.api.manager {
+    Manageable,
+    WebhookManager
+}
 
-shared interface Webhook satisfies Distinct & ClientLinked {
-
-    shared formal Guild guild;
+shared interface Webhook satisfies Distinct & ClientLinked & GuildLinked & Manageable<Webhook,WebhookManager> {
 
     shared formal GuildTextChannel textChannel;
 

@@ -15,7 +15,10 @@ import xyz.dotdash.ceycord.api.manager {
 }
 import xyz.dotdash.ceycord.api.util {
     Region,
-    VerificationLevel
+    VerificationLevel,
+    NotificationLevel,
+    ExplicitContentLevel,
+    MFALevel
 }
 
 shared interface Guildlike of Guild | UnavailableGuild satisfies Distinct {
@@ -65,7 +68,13 @@ shared interface Guild satisfies Guildlike & ClientLinked & Category<User> & Man
 
     shared formal Promise<Nothing> delete(String? mfaCode = null) ;
 
-    shared formal VerificationLevel verificationLevel;
+    shared formal VerificationLevel? verificationLevel;
+
+    shared formal NotificationLevel? defaultNotificationLevel;
+
+    shared formal MFALevel? requiredMfaLevel;
+
+    shared formal ExplicitContentLevel? explicitContentLevel;
 
     shared actual Boolean available => true;
 }

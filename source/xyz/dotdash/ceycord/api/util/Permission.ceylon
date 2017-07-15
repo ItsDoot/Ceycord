@@ -14,10 +14,13 @@ shared class Permission of createInstantInvite | kickMembers | banMembers | admi
 
     shared static {Permission*} voicePermissions => permissions.filter((perm) => perm.voice);
 
-    shared static Permission? fromOffset(Integer offset)
+    shared static Permission? withOffset(Integer offset)
             => permissions.find((perm) => perm.offset == offset);
 
-    shared static {Permission*} fromRaw(Integer raw)
+    shared static Permission? withName(String name)
+            => permissions.find((perm) => perm.name == name);
+
+    shared static {Permission*} withRaw(Integer raw)
             => permissions.filter((perm) => raw.rightLogicalShift(perm.offset).and(1) == 1);
 
     shared static Integer toRaw({Permission*} permissions)

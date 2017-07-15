@@ -11,6 +11,11 @@ import xyz.dotdash.ceycord.api.entity {
 import xyz.dotdash.ceycord.api.entity.message {
     GuildMessage
 }
+import xyz.dotdash.ceycord.api.manager {
+    Manageable,
+    GuildTextChannelManager,
+    GuildVoiceChannelManager
+}
 
 shared interface GuildChannel of GuildTextChannel | GuildVoiceChannel satisfies Channel {
 
@@ -21,7 +26,8 @@ shared interface GuildChannel of GuildTextChannel | GuildVoiceChannel satisfies 
     //shared formal {PermissionOverwrite*} overwrites;
 }
 
-shared interface GuildTextChannel satisfies GuildChannel & TextChannel & Comparable<GuildTextChannel> {
+shared interface GuildTextChannel satisfies GuildChannel & TextChannel
+        & Manageable<GuildTextChannel,GuildTextChannelManager> & Comparable<GuildTextChannel> {
 
     shared formal String topic;
 
@@ -34,5 +40,10 @@ shared interface GuildTextChannel satisfies GuildChannel & TextChannel & Compara
     shared formal Promise<Nothing> deleteMessagesWithIds({String*} ids) ;
 }
 
-shared interface GuildVoiceChannel satisfies GuildChannel & VoiceChannel & Comparable<GuildVoiceChannel> & Category<User|GuildMember> {
+shared interface GuildVoiceChannel satisfies GuildChannel & VoiceChannel
+        & Manageable<GuildVoiceChannel,GuildVoiceChannelManager> & Comparable<GuildVoiceChannel> & Category<User|GuildMember> {
+
+    shared formal Integer userLimit;
+
+    shared formal Integer bitrate;
 }

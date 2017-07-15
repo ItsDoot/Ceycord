@@ -1,4 +1,4 @@
-shared class VerificationLevel of none | low | medium | high | veryHigh {
+shared class VerificationLevel of none | low | medium | high | veryHigh satisfies Comparable<VerificationLevel> {
 
     shared static VerificationLevel? with(Integer id) => `VerificationLevel`.caseValues.find((level) => level.id == id);
 
@@ -23,4 +23,6 @@ shared class VerificationLevel of none | low | medium | high | veryHigh {
     shared new veryHigh {
         this.id = 4;
     }
+
+    compare(VerificationLevel other) => this.id <=> other.id;
 }
