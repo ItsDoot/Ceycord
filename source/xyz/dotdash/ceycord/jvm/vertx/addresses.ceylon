@@ -1,3 +1,0 @@
-shared object addresses {
-
-}

@@ -1,0 +1,3 @@
+The JVM implementation of Ceycord is backed by the Vert.x framework.
+Each JvmClient is backed by at least 1 GatewayVerticle, and 1 Request<Entity>Verticle for each major entity (guild, user, channel).
+Since we allow a JvmClient performant way for the Client to access discord info. have more than 1 of each of those, we need a pe

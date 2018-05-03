@@ -1,1 +1,0 @@
-shared package xyz.dotdash.ceycord.jvm.entity;
