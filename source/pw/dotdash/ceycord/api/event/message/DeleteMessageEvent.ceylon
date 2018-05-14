@@ -1,0 +1,1 @@
+shared interface DeleteMessageEvent satisfies MessageEvent {}

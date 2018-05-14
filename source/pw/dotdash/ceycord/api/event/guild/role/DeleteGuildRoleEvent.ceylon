@@ -1,0 +1,1 @@
+shared interface DeleteGuildRoleEvent satisfies GuildRoleEvent {}

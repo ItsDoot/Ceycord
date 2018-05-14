@@ -1,4 +1,4 @@
-import pw.dotdash.ceycord.executor.service {
+import pw.dotdash.ceycord.api.executor {
     ExecutorService,
     ExecutorPool
 }

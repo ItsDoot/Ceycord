@@ -1,4 +1,4 @@
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     get,
     put,
     patch,

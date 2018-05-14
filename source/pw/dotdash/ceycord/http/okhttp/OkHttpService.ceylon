@@ -20,12 +20,12 @@ import okhttp3 {
     MediaType
 }
 
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     HttpService,
     Response,
     Method
 }
-import pw.dotdash.ceycord.http.service.exception {
+import pw.dotdash.ceycord.api.http.exception {
     NotFoundException,
     HttpResponseException
 }

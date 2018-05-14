@@ -7,11 +7,6 @@ module pw.dotdash.ceycord.impl "1.0.0" {
 
     shared import pw.dotdash.ceycord.api "1.0.0";
 
-    shared import pw.dotdash.ceycord.cache.service "1.0.0";
-    shared import pw.dotdash.ceycord.executor.service "1.0.0";
-    shared import pw.dotdash.ceycord.http.service "1.0.0";
-    shared import pw.dotdash.ceycord.ws.service "1.0.0";
-
     native ("jvm")
     shared import pw.dotdash.ceycord.executor.java "1.0.0";
 }

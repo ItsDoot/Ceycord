@@ -1,0 +1,1 @@
+shared interface AddGuildMemberEvent satisfies GuildMemberEvent {}

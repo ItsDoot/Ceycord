@@ -1,28 +1,28 @@
-shared abstract class NotificationLevel of allMessages | onlyMentions {
+shared class NotificationLevel of allMessages | onlyMentions {
 
-    shared static object allMessages extends NotificationLevel(0) {
-        string => "allMessages";
-    }
-
-    shared static object onlyMentions extends NotificationLevel(1) {
-        string => "onlyMentions";
-    }
-
-    shared static NotificationLevel|ParseException parse(String string) =>
-            parseNotificationLevel(string) else ParseException("illegal format for NotificationLevel");
+    shared static NotificationLevel|ParseException parse(String|Integer stringOrId) =>
+            parseNotificationLevel(stringOrId) else ParseException("illegal format for NotificationLevel");
 
     shared Integer id;
+    shared actual String string;
+    shared String name;
 
-    shared new (Integer id) {
+    abstract new level(Integer id, String string, String name) {
         this.id = id;
+        this.string = string;
+        this.name = name;
     }
 
-    hash => id.hash;
+    shared new allMessages extends level(0, "allMessages", "All Messages") {}
+
+    shared new onlyMentions extends level(1, "onlyMentions", "Only Mentions") {}
+
+    hash = id.hash;
 }
 
 see (`function NotificationLevel.parse`)
-shared NotificationLevel? parseNotificationLevel(String string) =>
-        switch (string)
-        case ("allMessages") NotificationLevel.allMessages
-        case ("onlyMentions") NotificationLevel.onlyMentions
+shared NotificationLevel? parseNotificationLevel(String|Integer stringOrId) =>
+        switch (stringOrId)
+        case (0|"allMessages"|"All Messages") NotificationLevel.allMessages
+        case (1|"onlyMentions"|"Only Mentions") NotificationLevel.onlyMentions
         else null;

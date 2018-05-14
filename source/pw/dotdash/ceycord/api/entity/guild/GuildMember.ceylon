@@ -1,9 +1,6 @@
 import pw.dotdash.ceycord.api.entity.user {
     User
 }
-import pw.dotdash.ceycord.api.entity.permission {
-    Role
-}
 
 shared interface GuildMember {
 

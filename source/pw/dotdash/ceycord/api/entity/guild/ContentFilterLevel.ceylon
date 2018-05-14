@@ -1,33 +1,31 @@
-shared abstract class ContentFilterLevel of disabled | withoutRoles | allMembers {
+shared class ContentFilterLevel of disabled | withoutRoles | allMembers {
 
-    shared static object disabled extends ContentFilterLevel(0) {
-        string => "disabled";
-    }
-
-    shared static object withoutRoles extends ContentFilterLevel(1) {
-        string => "withoutRoles";
-    }
-
-    shared static object allMembers extends ContentFilterLevel(2) {
-        string => "allMembers";
-    }
-
-    shared static ContentFilterLevel|ParseException parse(String string) =>
-            parseContentFilterLevel(string) else ParseException("illegal format for ContentFilterLevel");
+    shared static ContentFilterLevel|ParseException parse(String|Integer stringOrId) =>
+            parseContentFilterLevel(stringOrId) else ParseException("illegal format for ContentFilterLevel");
 
     shared Integer id;
+    shared actual String string;
+    shared String name;
 
-    shared new (Integer id) {
+    abstract new level(Integer id, String string, String name) {
         this.id = id;
+        this.string = string;
+        this.name = name;
     }
 
-    hash => id.hash;
+    shared new disabled extends level(0, "disabled", "Disabled") {}
+
+    shared new withoutRoles extends level(1, "withoutRoles", "Members Without Roles") {}
+
+    shared new allMembers extends level(2, "allMembers", "All Members") {}
+
+    hash = id.hash;
 }
 
 see (`function ContentFilterLevel.parse`)
-shared ContentFilterLevel? parseContentFilterLevel(String string) =>
-        switch(string)
-        case ("disabled") ContentFilterLevel.disabled
-        case ("withoutRoles") ContentFilterLevel.withoutRoles
-        case ("allMembers") ContentFilterLevel.allMembers
+shared ContentFilterLevel? parseContentFilterLevel(String|Integer stringOrId) =>
+        switch (stringOrId)
+        case (0|"disabled"|"Disabled") ContentFilterLevel.disabled
+        case (1|"withoutRoles"|"Members Without Roles") ContentFilterLevel.withoutRoles
+        case (2|"allMembers"|"All Members") ContentFilterLevel.allMembers
         else null;

@@ -1,8 +1,5 @@
-import pw.dotdash.ceycord.api.entity.permission {
-    Role
-}
-import pw.dotdash.ceycord.api.entity.user {
-    User
+import pw.dotdash.ceycord.api.entity.channel {
+    GuildVoiceChannel
 }
 
 shared interface Guild satisfies Guildlike {
@@ -22,11 +19,24 @@ shared interface Guild satisfies Guildlike {
     "The URL of the [[Guild]] image splash."
     shared formal String? splashUrl;
 
+    "Whether the current user is the owner of the [[Guild]]."
+    shared default Boolean selfOwner => owner.user == ceycord.selfUser;
+
     shared formal GuildMember owner;
 
-    shared formal User ownerUser;
+    shared formal Region? region;
 
-    shared formal Integer? applicationId;
+    shared formal Boolean embedded;
+
+    shared formal GuildVoiceChannel embedChannel;
+
+    shared formal VerificationLevel? verificationLevel;
+
+    shared formal NotificationLevel? defaultNotificationLevel;
+
+    shared formal ContentFilterLevel? contentFilterLevel;
+
+    shared formal MFALevel? mfaLevel;
 
     "The features of the [[Guild]].
 
@@ -38,15 +48,7 @@ shared interface Guild satisfies Guildlike {
      - `VIP_REGIONS`"
     shared formal Set<String> features;
 
-    // TODO : region
-
-    shared formal VerificationLevel verificationLevel;
-
-    shared formal NotificationLevel defaultNotificationLevel;
-
-    shared formal ContentFilterLevel contentFilterLevel;
-
-    shared formal MFALevel mfaLevel;
+    shared formal String? applicationId;
 
     shared formal Boolean large;
 

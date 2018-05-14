@@ -19,7 +19,7 @@ import ceylon.uri {
 import pw.dotdash.ceycord.impl {
     services
 }
-import pw.dotdash.ceycord.ws.service {
+import pw.dotdash.ceycord.api.websocket {
     WebSocketService,
     WebSocket
 }

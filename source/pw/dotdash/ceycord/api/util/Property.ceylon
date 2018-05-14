@@ -8,5 +8,5 @@ shared abstract class Unchanged of unchanged {
 
 shared object unchanged extends Unchanged() {
     string = "unchanged";
-    hash = string.hash;
+    hash = 1;
 }

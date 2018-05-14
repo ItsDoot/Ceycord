@@ -16,7 +16,7 @@ import java.util.concurrent {
     CompletableFuture
 }
 
-import pw.dotdash.ceycord.executor.service {
+import pw.dotdash.ceycord.api.executor {
     ExecutorPool
 }
 

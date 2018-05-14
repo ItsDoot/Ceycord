@@ -1,1 +1,0 @@
-shared package pw.dotdash.ceycord.ws.service;

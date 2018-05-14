@@ -8,10 +8,10 @@ import ceylon.time.base {
     milliseconds
 }
 
-import pw.dotdash.ceycord.executor.service {
+import pw.dotdash.ceycord.api.executor {
     ExecutorService
 }
-import pw.dotdash.ceycord.ws.service {
+import pw.dotdash.ceycord.api.websocket {
     WebSocket
 }
 import ceylon.language.meta.declaration {

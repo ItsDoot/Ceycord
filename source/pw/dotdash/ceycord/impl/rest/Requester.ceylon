@@ -15,11 +15,12 @@ import ceylon.promise {
     Promise
 }
 
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     HttpService
 }
 import pw.dotdash.ceycord.impl {
-    services
+    services,
+    CeycordImpl
 }
 import pw.dotdash.ceycord.impl.entity {
     UserImpl
@@ -28,7 +29,7 @@ import pw.dotdash.ceycord.impl.util {
     jsonRegistry
 }
 
-shared class Requester(Module user, String fullToken) {
+shared class Requester(Module user, CeycordImpl ceycord, String fullToken) {
 
     Logger logger = createLogger(`package`);
 
@@ -48,6 +49,6 @@ shared class Requester(Module user, String fullToken) {
                 logger.trace("Response code: ``resp.code``");
                 logger.trace("Received User: " + obj.pretty);
 
-                return jsonRegistry.deserialize<UserImpl>(obj);
+                return jsonRegistry.deserialize<UserImpl>(ceycord, obj);
             });
 }

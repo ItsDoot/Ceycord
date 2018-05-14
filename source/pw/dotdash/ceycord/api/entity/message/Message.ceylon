@@ -8,11 +8,11 @@ import pw.dotdash.ceycord.api.entity {
 import pw.dotdash.ceycord.api.entity.channel {
     TextChannel
 }
+import pw.dotdash.ceycord.api.entity.guild {
+    Role
+}
 import pw.dotdash.ceycord.api.entity.user {
     User
-}
-import pw.dotdash.ceycord.api.entity.permission {
-    Role
 }
 
 shared interface Message satisfies Unique {
@@ -37,11 +37,11 @@ shared interface Message satisfies Unique {
 
     shared formal TextChannel[] channelMentions;
 
-    // TODO : attachments
+    shared formal Attachment[] attachments;
 
-    // TODO : embeds
+    shared formal Embed[] embeds;
 
-    // TODO : reactions
+    shared formal Reaction[] reactions;
 
     shared formal String? nonce;
 

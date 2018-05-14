@@ -1,0 +1,1 @@
+shared interface UpdateMessageEvent satisfies MessageEvent {}

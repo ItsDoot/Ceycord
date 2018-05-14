@@ -2,24 +2,24 @@ import ceylon.language.meta.declaration {
     Module
 }
 
-import pw.dotdash.ceycord.cache.service {
-    MutableCacheService
+import pw.dotdash.ceycord.api.cache {
+    CacheService
 }
-import pw.dotdash.ceycord.executor.service {
+import pw.dotdash.ceycord.api.executor {
     ExecutorService
 }
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     HttpService
 }
-import pw.dotdash.ceycord.ws.service {
+import pw.dotdash.ceycord.api.websocket {
     WebSocketService
 }
 
 shared object services {
 
-    shared MutableCacheService cache(Module user) {
+    shared CacheService cache(Module user) {
         "Could not find a CacheService implementation! You must import one in your module.ceylon!"
-        assert (exists service = user.findServiceProviders(`MutableCacheService`).first);
+        assert (exists service = user.findServiceProviders(`CacheService`).first);
         return service;
     }
 

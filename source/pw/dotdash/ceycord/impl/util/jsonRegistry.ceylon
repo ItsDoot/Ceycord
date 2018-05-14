@@ -11,18 +11,22 @@ import ceylon.language.meta.model {
     Type
 }
 
+import pw.dotdash.ceycord.api {
+    Ceycord
+}
 import pw.dotdash.ceycord.impl.entity {
-    UserImpl
+    UserImpl,
+    RoleImpl
 }
 
 shared object jsonRegistry {
 
     value serializers = HashMap<Type<Anything>,JsonObject(Nothing)>();
-    value deserializers = HashMap<Type<Anything>,Anything(JsonObject)>();
+    value deserializers = HashMap<Type<Anything>,Anything(ParsingContext, JsonObject)>();
 
     shared void register<Entity>(
             JsonObject serialize(Entity entity),
-            Entity deserialize(JsonObject json)) {
+            Entity deserialize(ParsingContext ctx, JsonObject json)) {
         serializers.put(`Entity`, serialize);
         deserializers.put(`Entity`, deserialize);
     }
@@ -33,27 +37,14 @@ shared object jsonRegistry {
         return serializer(entity);
     }
 
-    shared Entity deserialize<Entity>(JsonObject json) {
+    shared Entity deserialize<Entity>(Ceycord ceycord, JsonObject json) {
         "Could not find a deserializer that supports ``typeLiteral<Entity>()``"
-        assert (is Entity(JsonObject) deserializer = deserializers.get(`Entity`));
-        return deserializer(json);
+        assert (is Entity(Ceycord, JsonObject) deserializer = deserializers.get(`Entity`));
+        return deserializer(ceycord, json);
     }
 
     shared void registerStandard() {
-        register<UserImpl>((entity) => JsonObject {
-            "id"->entity.id,
-            "username"->entity.name,
-            "discriminator"->entity.discriminator,
-            "avatar"->entity.avatar,
-            "bot"->entity.bot,
-            "mfa_enabled"->entity.mfaEnabled
-        }, (json) => UserImpl {
-            id = json.getString("id");
-            name = json.getString("username");
-            discriminator = json.getString("discriminator");
-            avatar = json.getStringOrNull("avatar");
-            bot = json.defines("bot") then json.getBoolean("bot") else false;
-            mfaEnabled = json.defines("mfa_enabled") then json.getBoolean("mfa_enabled") else false;
-        });
+        register(UserImpl.json, UserImpl.fromJson);
+        register(RoleImpl.json, RoleImpl.fromJson);
     }
 }

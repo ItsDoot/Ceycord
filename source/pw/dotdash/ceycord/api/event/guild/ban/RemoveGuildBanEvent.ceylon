@@ -1,0 +1,1 @@
+shared interface RemoveGuildBanEvent satisfies GuildBanEvent {}

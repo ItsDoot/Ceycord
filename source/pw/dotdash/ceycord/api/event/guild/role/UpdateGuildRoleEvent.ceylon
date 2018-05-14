@@ -1,0 +1,1 @@
+shared interface UpdateGuildRoleEvent satisfies GuildRoleEvent {}

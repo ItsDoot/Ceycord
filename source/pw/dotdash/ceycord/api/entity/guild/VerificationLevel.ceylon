@@ -1,43 +1,37 @@
-shared abstract class VerificationLevel of none | low | medium | high | veryHigh {
+shared class VerificationLevel of none | low | medium | high | veryHigh {
 
-    shared static object none extends VerificationLevel(0) {
-        string => "none";
-    }
-
-    shared static object low extends VerificationLevel(1) {
-        string => "low";
-    }
-
-    shared static object medium extends VerificationLevel(2) {
-        string => "medium";
-    }
-
-    shared static object high extends VerificationLevel(3) {
-        string => "high";
-    }
-
-    shared static object veryHigh extends VerificationLevel(4) {
-        string => "veryHigh";
-    }
-
-    shared static VerificationLevel|ParseException parse(String string) =>
-            parseVerificationLevel(string) else ParseException("illegal format for VerificationLevel");
+    shared static VerificationLevel|ParseException parse(String|Integer stringOrId) =>
+            parseVerificationLevel(stringOrId) else ParseException("illegal format for VerificationLevel");
 
     shared Integer id;
+    shared actual String string;
+    shared String name;
 
-    shared new (Integer id) {
+    abstract new level(Integer id, String string, String name) {
         this.id = id;
+        this.string = string;
+        this.name = name;
     }
 
-    hash => id.hash;
+    shared new none extends level(0, "none", "None") {}
+
+    shared new low extends level(1, "low", "Low") {}
+
+    shared new medium extends level(2, "medium", "Medium") {}
+
+    shared new high extends level(3, "high", "High") {}
+
+    shared new veryHigh extends level(4, "veryHigh", "Very High") {}
+
+    hash = id.hash;
 }
 
 see (`function VerificationLevel.parse`)
 shared VerificationLevel? parseVerificationLevel(String|Integer stringOrId) =>
         switch (stringOrId)
-        case ("none"|0) VerificationLevel.none
-        case ("low"|1) VerificationLevel.low
-        case ("medium"|2) VerificationLevel.medium
-        case ("high"|3) VerificationLevel.high
-        case ("veryHigh"|4) VerificationLevel.veryHigh
+        case (0|"none"|"None") VerificationLevel.none
+        case (1|"low"|"Low") VerificationLevel.low
+        case (2|"medium"|"Medium") VerificationLevel.medium
+        case (3|"high"|"High") VerificationLevel.high
+        case (4|"veryHigh"|"Very High") VerificationLevel.veryHigh
         else null;

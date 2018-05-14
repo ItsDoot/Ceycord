@@ -11,7 +11,7 @@ import okhttp3 {
     Delegate=Response
 }
 
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     Response
 }
 

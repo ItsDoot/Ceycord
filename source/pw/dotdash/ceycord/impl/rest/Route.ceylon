@@ -5,7 +5,7 @@ import ceylon.promise {
     Promise
 }
 
-import pw.dotdash.ceycord.http.service {
+import pw.dotdash.ceycord.api.http {
     Method,
     Response,
     HttpService

@@ -1,33 +1,25 @@
-import ceylon.language.meta.declaration {
-    Module
-}
 import ceylon.promise {
     Promise
 }
 
+import pw.dotdash.ceycord.api.cache {
+    CacheService
+}
 import pw.dotdash.ceycord.api.entity.channel {
-    Category,
+    GuildCategory,
     GuildTextChannel,
     GuildVoiceChannel
 }
 import pw.dotdash.ceycord.api.entity.guild {
-    Guild
-}
-import pw.dotdash.ceycord.api.entity.permission {
+    Guild,
     Role
 }
 import pw.dotdash.ceycord.api.entity.user {
     User,
-    UserStatus,
     SelfUser
-}
-import pw.dotdash.ceycord.cache.service {
-    CacheService
 }
 
 shared interface Ceycord {
-
-    shared formal AccountType accountType;
 
     shared formal String token;
 
@@ -35,19 +27,21 @@ shared interface Ceycord {
 
     shared formal SelfUser selfUser;
 
-    shared formal CacheService cache;
+    shared formal CacheService.Cache cache;
 
     shared formal void disconnect() ;
 
-    shared formal Promise<User> getUserById(String id) ;
+    shared formal Promise<User> getUser(String id) ;
 
-    shared formal Promise<Guild> getGuildById(String id) ;
+    shared formal Promise<Guild> getGuild(String id) ;
 
-    shared formal Promise<Role> getRoleById(String id) ;
+    shared formal Promise<Role> getRole(String id) ;
 
-    shared formal Promise<Category> getCategoryById(String id) ;
+    shared formal Promise<GuildCategory> getCategory(String id) ;
 
-    shared formal Promise<GuildTextChannel> getGuildTextChannelById(String id) ;
+    shared formal Promise<GuildTextChannel> getGuildTextChannel(String id) ;
 
-    shared formal Promise<GuildVoiceChannel> getGuildVoiceChannelById(String id) ;
+    shared formal Promise<GuildVoiceChannel> getGuildVoiceChannel(String id) ;
+
+    // TODO : newGuild
 }

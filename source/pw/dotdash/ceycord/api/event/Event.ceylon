@@ -4,5 +4,5 @@ import pw.dotdash.ceycord.api {
 
 shared interface Event {
 
-    shared formal Ceycord client;
+    shared formal Ceycord ceycord;
 }

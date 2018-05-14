@@ -1,162 +1,75 @@
-shared abstract class Permission of createInstantInvite | kickMembers | banMembers | administrator | manageChannels |
+shared class Permission of createInstantInvite | kickMembers | banMembers | administrator | manageChannels |
         manageGuild | addReactions | viewAuditLog | viewChannel | readMessages | sendMessages | sendTtsMessages |
         manageMessages | embedLinks | attachFiles | readMessageHistory | mentionEveryone | useExternalEmojis | connect |
         speak | muteMembers | deafenMembers | moveMembers | useVad | changeNickname | manageNicknames | manageRoles |
         managePermissions | manageWebhooks | manageEmojis {
 
-    shared static object createInstantInvite extends Permission(0, true, true, "Create Instant Invite") {
-        string => "createInstantInvite";
-    }
+    shared static {Permission*} values = permissions;
 
-    shared static object kickMembers extends Permission(1, true, false, "Kick Members") {
-        string => "kickMembers";
-    }
+    shared static {Permission*} guildValues = values.filter((perm) => perm.guild);
 
-    shared static object banMembers extends Permission(2, true, false, "Ban Members") {
-        string => "banMembers";
-    }
+    shared static {Permission*} channelValues = values.filter((perm) => perm.channel);
 
-    shared static object administrator extends Permission(3, true, false, "Administrator") {
-        string => "administrator";
-    }
+    shared static {Permission*} textValues = values.filter((perm) => perm.text);
 
-    shared static object manageChannels extends Permission(4, true, true, "Manage Channels") {
-        string => "manageChannels";
-    }
-
-    shared static object manageGuild extends Permission(5, true, false, "Manage Server") {
-        string => "manageGuild";
-    }
-
-    shared static object addReactions extends Permission(6, true, true, "Add Reactions") {
-        string => "addReactions";
-    }
-
-    shared static object viewAuditLog extends Permission(7, true, false, "View Audit Log") {
-        string => "viewAuditLog";
-    }
-
-    shared static object viewChannel extends Permission(10, true, true, "View Channel") {
-        string => "viewChannel";
-    }
-
-    shared static object readMessages extends Permission(10, true, true, "Read Messages") {
-        string => "readMessages";
-    }
-
-    shared static object sendMessages extends Permission(11, true, true, "Send Messages") {
-        string => "sendMessages";
-    }
-
-    shared static object sendTtsMessages extends Permission(12, true, true, "Send TTS Messages") {
-        string => "sendTtsMessages";
-    }
-
-    shared static object manageMessages extends Permission(13, true, true, "Manage Messages") {
-        string => "manageMessages";
-    }
-
-    shared static object embedLinks extends Permission(14, true, true, "Embed Links") {
-        string => "embedLinks";
-    }
-
-    shared static object attachFiles extends Permission(15, true, true, "attach Files") {
-        string => "attachFiles";
-    }
-
-    shared static object readMessageHistory extends Permission(16, true, true, "Read Message History") {
-        string => "readMessageHistory";
-    }
-
-    shared static object mentionEveryone extends Permission(17, true, true, "Mention Everyone") {
-        string => "mentionEveryone";
-    }
-
-    shared static object useExternalEmojis extends Permission(18, true, true, "Use External Emojis") {
-        string => "useExternalEmojis";
-    }
-
-    shared static object connect extends Permission(20, true, true, "Connect") {
-        string => "connect";
-    }
-
-    shared static object speak extends Permission(21, true, true, "Speak") {
-        string => "speak";
-    }
-
-    shared static object muteMembers extends Permission(22, true, true, "Mute Members") {
-        string => "muteMembers";
-    }
-
-    shared static object deafenMembers extends Permission(23, true, true, "Deafen Members") {
-        string => "deafenMembers";
-    }
-
-    shared static object moveMembers extends Permission(24, true, true, "Move Members") {
-        string => "moveMembers";
-    }
-
-    shared static object useVad extends Permission(25, true, true, "Use VAD") {
-        string => "useVad";
-    }
-
-    shared static object changeNickname extends Permission(26, true, false, "Change Nickname") {
-        string => "changeNickname";
-    }
-
-    shared static object manageNicknames extends Permission(27, true, false, "Manage Nicknames") {
-        string => "manageNicknames";
-    }
-
-    shared static object manageRoles extends Permission(28, true, false, "Manage Roles") {
-        string => "manageRoles";
-    }
-
-    shared static object managePermissions extends Permission(28, false, true, "Manage Permissions") {
-        string => "managePermissions";
-    }
-
-    shared static object manageWebhooks extends Permission(29, true, true, "Manage Webhooks") {
-        string => "manageWebhooks";
-    }
-
-    shared static object manageEmojis extends Permission(30, true, false, "Manage Emojis") {
-        string => "manageEmojis";
-    }
-
-    shared static {Permission*} allPermissions = permissions;
-
-    shared static {Permission*} guildPermisisons = allPermissions.filter((perm) => perm.guild);
-
-    shared static {Permission*} channelPermissions = allPermissions.filter((perm) => perm.channel);
-
-    shared static {Permission*} textPermissions = allPermissions.filter((perm) => perm.text);
-
-    shared static {Permission*} voicePermissions = allPermissions.filter((perm) => perm.voice);
+    shared static {Permission*} voiceValues = values.filter((perm) => perm.voice);
 
     shared static Permission|ParseException parse(String string) =>
-            allPermissions.find((perm) => perm.string == string || perm.name == string) else ParseException("illegal format for Permission");
+            values.find((perm) => perm.string == string || perm.name == string) else ParseException("illegal format for Permission");
 
     shared static Permission|ParseException parseOffset(Integer offset) =>
-            allPermissions.find((perm) => perm.offset == offset) else ParseException("illegal format for Permission");
+            values.find((perm) => perm.offset == offset) else ParseException("illegal format for Permission");
 
     shared static {Permission*} fromRaw(Integer raw) =>
-            allPermissions.filter((perm) => raw.and(perm.raw) == perm.raw);
+            values.filter((perm) => raw.and(perm.raw) == perm.raw);
 
     shared static Integer toRaw({Permission*} permissions) =>
-            allPermissions.fold(0)((Integer partial, Permission element) => partial.or(element.raw));
+            values.fold(0)((Integer partial, Permission element) => partial.or(element.raw));
 
+    shared actual String string;
     shared Integer offset;
     shared Boolean guild;
     shared Boolean channel;
     shared String name;
 
-    shared new (Integer offset, Boolean guild, Boolean channel, String name) {
+    abstract new perm(String string, Integer offset, Boolean guild, Boolean channel, String name) {
+        this.string = string;
         this.offset = offset;
         this.guild = guild;
         this.channel = channel;
         this.name = name;
     }
+
+    shared new createInstantInvite extends perm("createInstantInvite", 0, true, true, "Create Instant Invite") {}
+    shared new kickMembers extends perm("kickMembers", 1, true, false, "Kick Members") {}
+    shared new banMembers extends perm("banMembers", 2, true, false, "Ban Members") {}
+    shared new administrator extends perm("administrator", 3, true, false, "Administrator") {}
+    shared new manageChannels extends perm("manageChannels", 4, true, true, "Manage Channels") {}
+    shared new manageGuild extends perm("manageGuild", 5, true, false, "Manage Server") {}
+    shared new addReactions extends perm("addReactions", 6, true, true, "Add Reactions") {}
+    shared new viewAuditLog extends perm("viewAuditLog", 7, true, false, "View Audit Log") {}
+    shared new viewChannel extends perm("viewChannel", 10, true, true, "View Channel") {}
+    shared new readMessages extends perm("readMessages", 10, true, true, "Read Messages") {}
+    shared new sendMessages extends perm("sendMessages", 11, true, true, "Send Messages") {}
+    shared new sendTtsMessages extends perm("sendTtsMessages", 12, true, true, "Send TTS Messages") {}
+    shared new manageMessages extends perm("manageMessages", 13, true, true, "Manage Messages") {}
+    shared new embedLinks extends perm("embedLinks", 14, true, true, "Embed Links") {}
+    shared new attachFiles extends perm("attachFiles", 15, true, true, "Attach Files") {}
+    shared new readMessageHistory extends perm("readMessageHistory", 16, true, true, "Read Message History") {}
+    shared new mentionEveryone extends perm("mentionEveryone", 17, true, true, "Mention Everyone") {}
+    shared new useExternalEmojis extends perm("useExternalEmojis", 18, true, true, "Use External Emojis") {}
+    shared new connect extends perm("connect", 20, true, true, "Connect") {}
+    shared new speak extends perm("speak", 21, true, true, "Speak") {}
+    shared new muteMembers extends perm("muteMembers", 22, true, true, "Mute Members") {}
+    shared new deafenMembers extends perm("deafenMembers", 23, true, true, "Deafen Members") {}
+    shared new moveMembers extends perm("moveMembers", 24, true, true, "Move Members") {}
+    shared new useVad extends perm("useVad", 25, true, true, "Use VAD") {}
+    shared new changeNickname extends perm("changeNickname", 26, true, false, "Change Nickname") {}
+    shared new manageNicknames extends perm("manageNicknames", 27, true, false, "Manage Nicknames") {}
+    shared new manageRoles extends perm("manageRoles", 28, true, false, "Manage Roles") {}
+    shared new managePermissions extends perm("managePermissions", 28, false, true, "Manage Permissions") {}
+    shared new manageWebhooks extends perm("manageWebhooks", 29, true, true, "Manage Webhooks") {}
+    shared new manageEmojis extends perm("manageEmojis", 30, true, false, "Manage Emojis") {}
 
     shared Integer raw = 1.leftLogicalShift(offset);
 

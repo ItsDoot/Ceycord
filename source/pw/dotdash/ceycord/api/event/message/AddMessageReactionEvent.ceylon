@@ -1,0 +1,1 @@
+shared interface AddMessageReactionEvent satisfies MessageReactionEvent {}

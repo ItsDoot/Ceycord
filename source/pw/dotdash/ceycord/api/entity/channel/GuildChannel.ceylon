@@ -6,7 +6,7 @@ shared interface GuildChannel {
 
     shared formal Guild guild;
 
-    shared formal Category? category;
+    shared formal GuildCategory? category;
 
     shared formal String name;
 
